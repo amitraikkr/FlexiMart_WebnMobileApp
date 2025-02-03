@@ -1,0 +1,31 @@
+
+###### Build and Run the Containers
+
+# Build and start the containers
+docker-compose up -d --build
+
+# Check running containers
+docker ps
+
+
+######## Clear Previous Containers and Rebuild ###########
+
+# Stop and remove existing containers
+docker-compose down
+
+# Build the Docker image again
+docker-compose build --no-cache
+
+# Start the containers
+docker-compose up -d
+
+####### verify the PHP version:
+docker exec -it grocery_shop_app php -v
+
+##### Stop existing containers if running
+docker-compose down
+
+####### Verify Database Creation
+docker exec -it grocery_shop_db mysql -u root -p
+
+SHOW DATABASES;
