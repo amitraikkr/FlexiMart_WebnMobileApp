@@ -16,7 +16,7 @@ This project is a **Grocery Shop Admin Panel** built with **Laravel 10**, contai
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://your-repo-link.git
+git clone https://github.com/amitraikkr/FlexiMart_WebnMobileApp.git
 cd grocery_shop
 
 Build & Run the Containers
