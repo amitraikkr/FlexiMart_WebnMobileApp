@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api as Api;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\OrderController;
 
 Route::prefix('v1')->group(function () {
 
@@ -49,5 +50,13 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/sign-out', [Api\Auth\AuthController::class, 'signOut']);
         Route::get('/refresh-token', [Api\Auth\AuthController::class, 'refreshToken']);
+
+         // Order endpoints
+         Route::get('/orders/count', [Api\OrderController::class, 'getCountNewOrder']);
+         Route::get('/orders/by-date', [Api\OrderController::class, 'getListingByDate']);
+         Route::put('/orders/{id}/status', [Api\OrderController::class, 'updateOrderStatus']);
+         Route::post('/orders', [Api\OrderController::class, 'createNewOrder']);
     });
+
+
 });

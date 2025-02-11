@@ -75,4 +75,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'a
         Route::get('/{id}', 'mtView')->name('mtView');
         Route::get('view/all/', 'mtReadAll')->name('mtReadAll');
     });
+
+    // Add these new routes for orders
+    Route::resource('orders', ADMIN\OrderController::class)->only(['index', 'show']);
+    Route::put('orders/{id}/status', [ADMIN\OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });

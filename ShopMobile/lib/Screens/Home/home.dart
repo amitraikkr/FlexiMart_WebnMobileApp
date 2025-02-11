@@ -5,6 +5,7 @@ import 'package:mobile_pos/Screens/DashBoard/dashboard.dart';
 import 'package:mobile_pos/Screens/Home/home_screen.dart';
 import 'package:mobile_pos/Screens/Products/add_product.dart';
 import 'package:mobile_pos/Screens/Report/reports_screen.dart';
+import 'package:mobile_pos/Screens/Report/customer_orders_screen.dart';
 import 'package:mobile_pos/Screens/Settings/settings_screen.dart';
 import 'package:mobile_pos/constant.dart';
 
@@ -84,7 +85,7 @@ class _HomeState extends State<Home> {
             HomeScreen(),
             DashboardScreen(),
             AddProduct(fromHome: true),
-            Reports(),
+            CustomerOrdersScreen(),
             SettingScreen(),
           ],
         ),
@@ -119,7 +120,7 @@ class _HomeState extends State<Home> {
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.description),
-            label: 'Reports',
+            label: 'Orders',
           ),
           const BottomNavigationBarItem(
             icon: Icon(IconlyBold.setting),

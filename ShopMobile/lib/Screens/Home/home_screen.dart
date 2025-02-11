@@ -22,6 +22,57 @@ import '../../GlobalComponents/no_data_found.dart';
 import '../Products/Model/category_model.dart';
 import 'Model/drawer_manu_tile_model.dart';
 
+import '../../Screens/Report/customer_orders_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../../../Repository/constant_functions.dart';
+
+
+// Update the orderProvider to handle count
+final orderProvider = StateNotifierProvider<OrderNotifier, AsyncValue<int>>((ref) {
+  return OrderNotifier();
+});
+
+class OrderNotifier extends StateNotifier<AsyncValue<int>> {
+  OrderNotifier() : super(const AsyncValue.loading()) {
+    fetchOrders();
+  }
+
+  Future<void> fetchOrders() async {
+    try {
+      state = const AsyncValue.loading();
+      
+      final uri = Uri.parse('${APIConfig.url}/orders/count');
+      print('Fetching orders from: $uri');
+
+      final response = await http.get(uri, headers: {
+        'Accept': 'application/json',
+        'Authorization': await getAuthToken(),
+      });
+      
+      print('Response status: ${response.statusCode}'); // Debug status code
+      print('Response body: ${response.body}'); // Debug response data
+
+      if (response.statusCode == 200) {
+        final parsedData = jsonDecode(response.body) as Map<String, dynamic>;
+        final count = parsedData['data'] as int;
+        print('Parsed count: $count'); // Debug parsed count
+        
+        state = AsyncValue.data(count);
+      } else {
+        throw Exception('Failed to fetch order count');
+      }
+    } catch (e, stack) {
+      print('Error fetching orders: $e'); // Debug errors
+      state = AsyncValue.error(e, stack);
+    }
+  }
+
+  Future<void> refresh() async {
+    await fetchOrders();
+  }
+}
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -30,6 +81,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   List<DrawerManuTileModel> get drawerMenuList => [
         DrawerManuTileModel(title: lang.S.current.home, image: 'assets/grocery/home.svg', route: 'Home'),
         DrawerManuTileModel(title: lang.S.current.salesList, image: 'assets/grocery/sales_list.svg', route: 'Sales List'),
@@ -38,11 +90,11 @@ class _HomeScreenState extends State<HomeScreen> {
         DrawerManuTileModel(title: lang.S.current.purchase, image: 'assets/grocery/purchase.svg', route: 'Purchase'),
         DrawerManuTileModel(
             title: lang.S.current.purchaseList, image: 'assets/grocery/sales_list.svg', route: 'Purchase List'), // Assuming you intended to use 'sales_list.svg' here
-        DrawerManuTileModel(title: lang.S.current.dueList, image: 'assets/grocery/due_list.svg', route: 'Due List'),
-        DrawerManuTileModel(title: lang.S.current.lossProfit, image: 'assets/grocery/loss_profit.svg', route: 'Loss/Profit'),
-        DrawerManuTileModel(title: lang.S.current.stock, image: 'assets/grocery/stock.svg', route: "Stock"),
-        DrawerManuTileModel(title: lang.S.current.income, image: 'assets/incomeReport.svg', route: 'Income'),
-        DrawerManuTileModel(title: lang.S.current.expense, image: 'assets/grocery/expense.svg', route: 'Expense'),
+        //DrawerManuTileModel(title: lang.S.current.dueList, image: 'assets/grocery/due_list.svg', route: 'Due List'),
+        //DrawerManuTileModel(title: lang.S.current.lossProfit, image: 'assets/grocery/loss_profit.svg', route: 'Loss/Profit'),
+        //DrawerManuTileModel(title: lang.S.current.stock, image: 'assets/grocery/stock.svg', route: "Stock"),
+        //DrawerManuTileModel(title: lang.S.current.income, image: 'assets/incomeReport.svg', route: 'Income'),
+        //DrawerManuTileModel(title: lang.S.current.expense, image: 'assets/grocery/expense.svg', route: 'Expense'),
         DrawerManuTileModel(title: lang.S.current.reports, image: 'assets/grocery/reports.svg', route: 'Reports'),
       ];
   bool checkPermission({required String item, required business.Visibility? visibility}) {
@@ -55,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else if (item == 'Products' && (visibility?.productPermission ?? true)) {
       return true;
     } else if (item == 'Due List' && (visibility?.dueListPermission ?? true)) {
-      return true;
+       return true;
     } else if (item == 'Stock' && (visibility?.stockPermission ?? true)) {
       return true;
     } else if (item == 'Reports' && (visibility?.reportsPermission ?? true)) {
@@ -90,6 +142,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Consumer(builder: (_, ref, __) {
+        final orders = ref.watch(orderProvider); // Fetch latest orders
+
         final businessInfo = ref.watch(businessInfoProvider);
         final category = ref.watch(categoryProvider);
         final product = ref.watch(productProvider(selectedCategoryId));
@@ -105,6 +159,21 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SafeArea( // Added for safer UI rendering
                 child: Column(
                   children: [
+
+  
+
+                      /// **🔹 Categories Section (Existing Feature)**
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          "Categories",
+                          style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+
                     Container(
                       height: 80,
                       width: MediaQuery.of(context).size.width,
@@ -143,6 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
+
 
                     /// Wrapping with Expanded to prevent overflow
                     Expanded(
@@ -323,6 +393,35 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
+                         
+                                                  ///______Order Notification Section_______________________________
+                          Consumer(
+                            builder: (_, ref, __) {
+                              final orderCount = ref.watch(orderProvider);
+                              return orderCount.when(
+                                data: (count) {
+                                  if (count == 0) return const SizedBox.shrink();
+                                  return NotificationCard(
+                                    orderCount: count,
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const CustomerOrdersScreen(),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                loading: () => const CircularProgressIndicator(),
+                                error: (_, __) => const SizedBox.shrink(),
+                              );
+                            },
+                          ),
+
+
+
+
 
                           ///______category_______________________________
                           Text(
@@ -688,6 +787,60 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+class NotificationCard extends StatelessWidget {
+  final int orderCount;
+  final VoidCallback onTap;
+
+  const NotificationCard({
+    Key? key,
+    required this.orderCount,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF3F4FF),  // Light purple background
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: const Color(0xFF6C63FF).withOpacity(0.3),
+            width: 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.notifications_active_outlined,
+              color: const Color(0xFF6C63FF),
+              size: 20,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                'You have $orderCount new order${orderCount > 1 ? 's' : ''} to process',
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: Colors.black87,
+                ),
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.black54,
+              size: 16,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class ItemDetailsModal extends StatefulWidget {
   ItemDetailsModal({Key? key, required this.product, required this.ref}) : super(key: key);
 
@@ -921,3 +1074,5 @@ class _ItemDetailsModalState extends State<ItemDetailsModal> {
     );
   }
 }
+
+

@@ -1,4 +1,4 @@
-package com.acnoo.groceryshop
+package com.zeta.fleximart
 
 import io.flutter.embedding.android.FlutterActivity
 

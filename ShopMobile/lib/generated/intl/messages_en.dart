@@ -354,7 +354,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "gotEmail":
             MessageLookupByLibrary.simpleMessage("You Have Got An Email"),
         "gotIt": MessageLookupByLibrary.simpleMessage("Got It"),
-        "groceryShop": MessageLookupByLibrary.simpleMessage("Grocery Shop"),
+        "groceryShop": MessageLookupByLibrary.simpleMessage("Flexi Mart"),
         "guest": MessageLookupByLibrary.simpleMessage("Guest"),
         "haveAcc":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),

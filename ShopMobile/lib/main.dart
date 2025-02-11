@@ -14,6 +14,7 @@ import 'package:mobile_pos/Screens/Products/add_product.dart';
 import 'package:mobile_pos/Screens/Products/product_list_screen.dart';
 import 'package:mobile_pos/Screens/Profile/profile_screen.dart';
 import 'package:mobile_pos/Screens/Report/reports_screen.dart';
+import 'package:mobile_pos/Screens/Report/customer_orders_screen.dart';
 import 'package:mobile_pos/Screens/Sales/add_discount.dart';
 import 'package:mobile_pos/Screens/Sales/add_promo_code.dart';
 import 'package:mobile_pos/Screens/Sales/customer_screen_for_sales.dart';
@@ -31,6 +32,7 @@ import 'Screens/Purchase/choose_supplier_screen.dart';
 import 'Screens/Sales List/sales_list_screen.dart';
 import 'Screens/language/language_provider.dart';
 import 'generated/l10n.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,7 +63,7 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: S.delegate.supportedLocales,
-                title: 'Grocery Shop',
+                title: 'Flexi Mart',
                 initialRoute: '/',
                 builder: EasyLoading.init(),
                 routes: {
@@ -93,6 +95,8 @@ class MyApp extends StatelessWidget {
                   '/Sales List': (context) => const SalesListScreen(),
                   '/Purchase List': (context) => const PurchaseListScreen(),
                   '/Loss/Profit': (context) => const LossProfitScreen(),
+                  '/orders': (context) => const CustomerOrdersScreen(),
+                  '/customer_orders_screen': (context) => const CustomerOrdersScreen(),
                 },
               )),
     );

@@ -658,14 +658,14 @@
     "Login Page Icon": "Ikona prihlasovacej stránky",
     "Login Page Image": "Obrázok prihlasovacej stránky",
 
-    "installer_messages.title": "Grocery Shop Installer",
+    "installer_messages.title": "Flexi Mart Installer",
     "installer_messages.next": "Next Step",
     "installer_messages.back": "Previous",
     "installer_messages.finish": "Install",
     "installer_messages.forms.errorTitle": "The Following errors occurred:",
 
     "installer_messages.welcome.templateTitle": "Welcome",
-    "installer_messages.welcome.title": "Grocery Shop Installer",
+    "installer_messages.welcome.title": "Flexi Mart Installer",
     "installer_messages.welcome.message": "Easy Installation and Setup Wizard.",
     "installer_messages.welcome.next": "Check Requirements",
 

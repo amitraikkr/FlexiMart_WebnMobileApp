@@ -50,34 +50,34 @@ class _SplashScreenState extends State<SplashScreen> {
     // bool result = await InternetConnectionChecker().hasConnection;
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult.first == ConnectivityResult.wifi || connectivityResult.first == ConnectivityResult.mobile) {
-      await PurchaseModel().isActiveBuyer().then((value) {
-        if (!value) {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-             // title:  Text("Not Active User"),
-              title:  Text(lang.S.of(context).notActiveUser),
-             // content: const Text("Please use the valid purchase code to use the app."),
-              content:  Text("${lang.S.of(context).pleaseUseTheValidPurchaseCodeToUseTheApp}."),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    //Exit app
-                    if (Platform.isAndroid) {
-                      SystemNavigator.pop();
-                    } else {
-                      exit(0);
-                    }
-                  },
-                  child:  Text(lang.S.of(context).oK),
-                ),
-              ],
-            ),
-          );
-        } else {
+      //await PurchaseModel().isActiveBuyer().then((value) {
+        // if (!value) {
+        //   showDialog(
+        //     context: context,
+        //     builder: (context) => AlertDialog(
+        //      // title:  Text("Not Active User"),
+        //       title:  Text(lang.S.of(context).notActiveUser),
+        //      // content: const Text("Please use the valid purchase code to use the app."),
+        //       content:  Text("${lang.S.of(context).pleaseUseTheValidPurchaseCodeToUseTheApp}."),
+        //       actions: [
+        //         TextButton(
+        //           onPressed: () {
+        //             //Exit app
+        //             if (Platform.isAndroid) {
+        //               SystemNavigator.pop();
+        //             } else {
+        //               exit(0);
+        //             }
+        //           },
+        //           child:  Text(lang.S.of(context).oK),
+        //         ),
+        //       ],
+        //     ),
+        //   );
+        // } else {
           nextPage();
-        }
-      });
+      //   }
+      // });
     } else {
       showDialog(
         context: context,

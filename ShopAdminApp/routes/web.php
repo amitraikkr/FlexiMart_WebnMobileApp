@@ -3,6 +3,8 @@
 use App\Http\Controllers as Web;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\CustomerOrderController;
+use App\Http\Controllers\Admin\ProductController;
 
 Route::redirect('/', '/login');
 
@@ -20,6 +22,17 @@ Route::get('/cache-clear', function () {
     Artisan::call('route:clear');
     Artisan::call('view:clear');
     return back()->with('success', __('Cache has been cleared.'));
+});
+
+Route::get('/orders', [CustomerOrderController::class, 'index'])->name('orders.index');
+Route::get('/orders/{id}', [CustomerOrderController::class, 'show'])->name('orders.show');
+Route::put('/orders/{id}/status', [CustomerOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
+    // Product Import Routes
+    Route::get('products/import', [ProductController::class, 'showImport'])->name('products.import');
+    Route::post('products/import', [ProductController::class, 'import'])->name('products.import.store');
+    Route::get('products/download-sample', [ProductController::class, 'downloadSample'])->name('products.download-sample');
 });
 
 require __DIR__.'/auth.php';

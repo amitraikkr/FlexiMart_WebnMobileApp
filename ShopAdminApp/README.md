@@ -1,6 +1,6 @@
-# 🛒 Grocery Shop Admin - Laravel 10 (Dockerized)
+# 🛒 Flexi Mart Admin - Laravel 10 (Dockerized)
 
-This project is a **Grocery Shop Admin Panel** built with **Laravel 10**, containerized using **Docker** for easy setup and deployment. It includes **PHP 8.2**, **Apache**, and **MySQL 8** for local development.
+This project is a **Flexi Mart Admin Panel** built with **Laravel 10**, containerized using **Docker** for easy setup and deployment. It includes **PHP 8.2**, **Apache**, and **MySQL 8** for local development.
 
 ## 🚀 Features
 - Laravel 10 powered admin panel

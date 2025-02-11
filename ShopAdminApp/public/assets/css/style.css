@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
 :root {
-    --clr-primary: #019934;
+    --clr-primary: #ffc107;
     --clr-white: #fff;
     --clr-white2: #f9f9f9;
     --clr-white3: #f3f7ff;
@@ -16,7 +16,7 @@
     --clr-gray5: #a3a3a3;
     --clr-violet: rgba(130, 49, 211, 1);
     --clr-violet-light: rgba(130, 49, 211, 0.12);
-    --clr-green: #01b81a;
+    --clr-green: #ffc107;
     --clr-green-light: rgba(1, 184, 26, 0.12);
     --clr-orange: #ff6565;
     --clr-orange-light: rgba(255, 116, 62, 0.12);
@@ -25,7 +25,7 @@
 }
 
 .primary {
-    color: #019934;
+    color: #ffc107;
 }
 .add-role-btn{
     color: #019934 !important;
@@ -50,7 +50,7 @@ html {
 }
 
 .bg-green-one {
-    background: #04f204 !important;
+    background: #ffc107 !important;
 }
 
 body {
@@ -2691,7 +2691,8 @@ input:checked + .slider:before {
 ----------------------------------------*/
 .footer {
     min-height: 100vh;
-    background: linear-gradient(to right,#009000, #02CB01, #006902);
+    /* background: linear-gradient(to right,#009000, #02CB01, #006902); */
+    background: linear-gradient(to right, #ffc107, #e6a700, #c78d00);
 
 }
 .footer .footer-logo {

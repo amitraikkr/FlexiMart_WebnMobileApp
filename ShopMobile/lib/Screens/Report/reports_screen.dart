@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile_pos/Screens/Report/Screens/due_report_screen.dart';
+//import 'package:mobile_pos/Screens/Report/Screens/due_report_screen.dart';
 import 'package:mobile_pos/Screens/Report/Screens/expense_report.dart';
 import 'package:mobile_pos/Screens/Report/Screens/income_report.dart';
 import 'package:mobile_pos/Screens/Report/Screens/purchase_report.dart';
@@ -12,7 +12,8 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../Loss_Profit/loss_profit_screen.dart';
 import '../internet checker/Internet_check_provider/util/network_observer_provider.dart';
-import '../stock_list/stock_list.dart';
+//import '../stock_list/stock_list.dart';
+import 'Screens/order_report.dart';
 
 class Reports extends StatefulWidget {
   const Reports({Key? key}) : super(key: key);
@@ -47,9 +48,20 @@ class _ReportsState extends State<Reports> {
             children: [
               ReportCard(
                   pressed: () {
+                    const OrderReportScreen().launch(context);
+                  },
+                  iconPath: 'assets/stock.svg',
+                  icon: Icons.receipt_long,
+                  title: 'Order Report'),
+              const SizedBox(
+                height: 16,
+              ),
+              ReportCard(
+                  pressed: () {
                     const SalesReportScreen().launch(context);
                   },
                   iconPath: 'assets/salesReport.svg',
+                  icon: Icons.shopping_cart,
                   title: lang.S.of(context).salesReport),
               const SizedBox(
                 height: 16,
@@ -59,34 +71,35 @@ class _ReportsState extends State<Reports> {
                     const PurchaseReportScreen().launch(context);
                   },
                   iconPath: 'assets/purchaseReport.svg',
+                  icon: Icons.shopping_cart,
                   title: lang.S.of(context).purchaseReport),
               const SizedBox(
                 height: 16,
               ),
-              ReportCard(
-                  pressed: () {
-                    const DueReportScreen().launch(context);
-                  },
-                  iconPath: 'assets/duereport.svg',
-                  title: lang.S.of(context).dueReport),
-              const SizedBox(
-                height: 16,
-              ),
+              // ReportCard(
+              //     pressed: () {
+              //       const DueReportScreen().launch(context);
+              //     },
+              //     iconPath: 'assets/duereport.svg',
+              //     title: lang.S.of(context).dueReport),
+              // const SizedBox(
+              //   height: 16,
+              // ),
       
               ///_______________Stock_report________________________________________________________________
-              ReportCard(
-                  pressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const StockList(
-                                  isFromReport: true,
-                                )));
-                  },
-                  iconPath: 'assets/stock.svg',
-                  //title: 'Stock Report'
-                  title: lang.S.of(context).stockReport),
-              const SizedBox(height: 16),
+              // ReportCard(
+              //     pressed: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => const StockList(
+              //                     isFromReport: true,
+              //                   )));
+              //     },
+              //     iconPath: 'assets/stock.svg',
+              //     //title: 'Stock Report'
+              //     title: lang.S.of(context).stockReport),
+              // const SizedBox(height: 16),
       
               ///_______________Loss/Profit________________________________________________________________
               ReportCard(
@@ -94,6 +107,7 @@ class _ReportsState extends State<Reports> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const LossProfitScreen()));
                   },
                   iconPath: 'assets/lossprofit.svg',
+                  icon: Icons.shopping_cart,
                   //title: 'Loss/Profit Report'
                   title: lang.S.of(context).lossProfitReport),
               const SizedBox(
@@ -106,6 +120,7 @@ class _ReportsState extends State<Reports> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const IncomeReport()));
                   },
                   iconPath: 'assets/incomeReport.svg',
+                  icon: Icons.shopping_cart,
                   title: lang.S.of(context).incomeReport),
               const SizedBox(
                 height: 16,
@@ -117,6 +132,7 @@ class _ReportsState extends State<Reports> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const ExpenseReport()));
                   },
                   iconPath: 'assets/expenseReport.svg',
+                  icon: Icons.shopping_cart,
                   //title: 'Expense Report'
                   title: lang.S.of(context).expenseReport),
             ],
@@ -133,12 +149,15 @@ class ReportCard extends StatelessWidget {
     Key? key,
     required this.pressed,
     required this.iconPath,
+    required this.icon,
     required this.title,
   }) : super(key: key);
 
   // ignore: prefer_typing_uninitialized_variables
   var pressed;
-  String iconPath, title;
+  String iconPath;
+  IconData icon;
+  String title;
 
   @override
   Widget build(BuildContext context) {

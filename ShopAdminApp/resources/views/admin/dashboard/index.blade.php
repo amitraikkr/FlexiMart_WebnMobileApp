@@ -13,7 +13,7 @@
                 </div>
                 <div class="content-side">
                     <h5 id="total_businesses">0</h5>
-                    <p>{{ __('Total Shop') }}</p>
+                    <p>{{ __('Total Shop2') }}</p>
                 </div>
             </div>
             <div class="couter-box">

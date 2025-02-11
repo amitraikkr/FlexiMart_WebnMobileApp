@@ -5670,10 +5670,10 @@ class S {
     );
   }
 
-  /// `Grocery Shop`
+  /// `Flexi Mart`
   String get groceryShop {
     return Intl.message(
-      'Grocery Shop',
+      'Flexi Mart',
       name: 'groceryShop',
       desc: '',
       args: [],

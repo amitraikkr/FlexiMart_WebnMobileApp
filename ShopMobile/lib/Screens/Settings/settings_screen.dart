@@ -17,8 +17,8 @@ import '../../model/business_info_model.dart';
 import '../Authentication/Repo/logout_repo.dart';
 import '../Currency/currency_screen.dart';
 import '../Shimmers/home_screen_appbar_shimmer.dart';
-import '../language/language.dart';
-import '../subscription/package_screen.dart';
+//import '../language/language.dart';
+//import '../subscription/package_screen.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -207,36 +207,36 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
 
                 ///_________subscription_____________________________________________________
-                ListTile(
-                  title: Text(
-                    lang.S.of(context).subscription,
-                    style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  onTap: () {
-                    const PackageScreen().launch(context);
-                  },
-                  leading: SvgPicture.asset(
-                    'assets/subscription.svg',
-                    height: 36,
-                    width: 36,
-                  ),
-                  trailing: const Icon(
-                    Icons.arrow_forward_ios,
-                    color: kGreyTextColor,
-                    size: 18,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Divider(
-                    thickness: 1.0,
-                    height: 1,
-                    color: kBorderColorTextField,
-                  ),
-                ),
+                // ListTile(
+                //   title: Text(
+                //     lang.S.of(context).subscription,
+                //     style: GoogleFonts.poppins(
+                //       color: Colors.black,
+                //       fontSize: 16.0,
+                //     ),
+                //   ),
+                //   onTap: () {
+                //     const PackageScreen().launch(context);
+                //   },
+                //   leading: SvgPicture.asset(
+                //     'assets/subscription.svg',
+                //     height: 36,
+                //     width: 36,
+                //   ),
+                //   trailing: const Icon(
+                //     Icons.arrow_forward_ios,
+                //     color: kGreyTextColor,
+                //     size: 18,
+                //   ),
+                // ),
+                // const Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 16),
+                //   child: Divider(
+                //     thickness: 1.0,
+                //     height: 1,
+                //     color: kBorderColorTextField,
+                //   ),
+                // ),
 
                 ///_________DashBoard_____________________________________________________
                 ListTile(
@@ -352,41 +352,41 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
 
                 ///_____________________________________________________________________________language
-                ListTile(
-                  title: Text(
-                    lang.S.of(context).selectLang,
-                    style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  onTap: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    final data = prefs.getString('lang');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SelectLanguage(alreadySelectedLanguage: data)),
-                    );
-                  },
-                  leading: SvgPicture.asset(
-                    'assets/language.svg',
-                    height: 36,
-                    width: 36,
-                  ),
-                  trailing: const Icon(
-                    Icons.arrow_forward_ios,
-                    color: kGreyTextColor,
-                    size: 18,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Divider(
-                    thickness: 1.0,
-                    height: 1,
-                    color: kBorderColorTextField,
-                  ),
-                ),
+                // ListTile(
+                //   title: Text(
+                //     lang.S.of(context).selectLang,
+                //     style: GoogleFonts.poppins(
+                //       color: Colors.black,
+                //       fontSize: 16.0,
+                //     ),
+                //   ),
+                //   onTap: () async {
+                //     final prefs = await SharedPreferences.getInstance();
+                //     final data = prefs.getString('lang');
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(builder: (context) => SelectLanguage(alreadySelectedLanguage: data)),
+                //     );
+                //   },
+                //   leading: SvgPicture.asset(
+                //     'assets/language.svg',
+                //     height: 36,
+                //     width: 36,
+                //   ),
+                //   trailing: const Icon(
+                //     Icons.arrow_forward_ios,
+                //     color: kGreyTextColor,
+                //     size: 18,
+                //   ),
+                // ),
+                // const Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 16),
+                //   child: Divider(
+                //     thickness: 1.0,
+                //     height: 1,
+                //     color: kBorderColorTextField,
+                //   ),
+                // ),
 
                 ///__________log_Out_______________________________________________________________
                 ListTile(

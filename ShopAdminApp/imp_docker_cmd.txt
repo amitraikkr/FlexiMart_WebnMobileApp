@@ -29,3 +29,13 @@ docker-compose down
 docker exec -it grocery_shop_db mysql -u root -p
 
 SHOW DATABASES;
+docker-compose exec app php artisan migrate
+docker-compose exec app php artisan db:seed
+
+
+
+
+GET     http://localhost:8000/api/v1/orders/count
+GET     http://localhost:8000/api/v1/orders/by-date?start_date=2024-03-01&end_date=2024-03-20
+PUT     http://localhost:8000/api/v1/orders/123/status
+POST    http://localhost:8000/api/v1/orders
